@@ -1,0 +1,229 @@
+[DP820A]
+Type = NDIS
+Title = "NSC DP83820 Another MAC driver"
+Version = 2.01
+DriverName = DP820A$
+Xports = NETBEUI, LANDD
+
+[FILE]
+Name = DP820A.OS2
+Path = IBMCOM\MACS
+
+
+[SLOT]
+display = "Slot Number of the Adapter"
+type = decimal
+;default = "0"
+optional = yes
+range = 0-7
+help = "SLOT=n, n=0..7 specifies the PCI SLOT index number 
+to look for the adapter. PCI SLOT index starts 0. Default is 0. 
+This isn't required unless there are multiple adapters."
+
+
+[TXQUEUE]
+display = "Maximum TX queue count"
+type = decimal
+;default = 8
+optional = yes
+range = 4-146
+help = "TXQUEUE=n, n=4..146, specifies the number of transmits 
+which can be queued up by the driver. The default value is 8."
+
+
+[RXQUEUE]
+display = "Maximum RX queue count"
+type = decimal
+;default = 16
+optional = yes
+range = 6-251
+help = "RXQUEUE=n, n=6..251, specifies the number of recieves 
+which can be queued up by the driver. The default value is 16."
+
+
+[TXEARLY]
+display = "Early Transmit Start"
+type = decimal
+;default = 7808
+optional = yes
+range = 32-8160
+;step = 32
+help = "TXEARLY=n, n=32..8160, specifies the amount copied into FIFO in byte 
+that the transmit action can be started. If this value is too low, 
+the transmit FIFO underrun may occur. The default value is 7808, 
+which is Store and Foward on normal frame size condition."
+
+
+[TXFLTH]
+display = "Transmit FIFO Fill Threshold"
+type = decimal
+;default = 288
+optional = yes
+range = 32-8160
+;step = 32
+help = "TXFLTH=n, n=32..8160, specifies the available FIFO size in byte 
+when the transmit DMA can be started. The default value is 288."
+
+
+[TXMXDMA]
+display = "Maximum Transmit DMA Burst"
+type = decimal
+;default = 256
+optional = yes
+set = 8,16,32,64,128,256,512,1024
+help = "TXMXDMA=n, specifies the maximum size in byte of the transmit 
+DMA bursts. The default value is 256."
+
+
+[RXEARLY]
+display = "Early Receive Start"
+type = decimal
+;default = 248
+optional = yes
+range = 8-248
+;step = 8
+help = "RXEARLY=n, n=8..248, specifies the amount copied into FIFO in byte 
+that the receive DMA can be started. The default value is 248."
+
+
+[RXMXDMA]
+display = "Maximum Recieve DMA Burst"
+type = decimal
+;default = 256
+optional = yes
+set = 8,16,32,64,128,256,512,1024
+help = "RXMXDMA=n, specifies the maximum size in byte of the recieve 
+DMA bursts. The default value is 256."
+
+
+[MAXFRAME]
+display = "Maximum Frame size"
+type = decimal
+;default = 1514
+optional = yes
+set = 1514, 9014
+help = "MAXFRAME=n, n=1514 or 9014, specifies the maximum frame size 
+which can be transmitted or received by the driver. The conventional 
+Ethernet MTU is 1500. The Jambo Packet MTU is 9000. The default value is 1514."
+
+
+[SFLOWON]
+display = "Status based Flow ON Threshold"
+type = decimal
+;default = 4
+optional = yes
+set = 0,2,4,8
+help = "SFLOWON=n, specifies the threshold for transmit MAC Control 
+pause frame with the length field of 65535. Transmition will occur 
+if the Status FIFO is less than n packets available. This function is 
+disabled if n=0. The default value is 4."
+
+
+[SFLOWOFF]
+display = "Status based Flow OFF Threshold"
+type = decimal
+;default = 8
+optional = yes
+set = 0,2,4,8
+help = "SFLOWON=n, specifies the threshold for transmit MAC Control 
+pause frame with the length field of 0. Transmition will occur 
+if the Status FIFO is n packets or more available. This function is 
+disabled if n=0. The default value is 8."
+
+
+[DFLOWON]
+display = "Data based Flow ON Threshold"
+type = decimal
+;default = 4
+optional = yes
+set = 0,2,4,8
+help = "DFLOWON=n, specifies the threshold for transmit MAC Control 
+pause frame with the length field of 65535. Transmition will occur 
+if the recieve FIFO is less than n Kbytes available. This function is 
+disabled if n=0. The default value is 4."
+
+
+[DFLOWOFF]
+display = "Data based Flow OFF Threshold"
+type = decimal
+;default = 8
+optional = yes
+set = 0,2,4,8
+help = "DFLOWON=n, specifies the threshold for transmit MAC Control 
+pause frame with the length field of 0. Transmition will occur 
+if the recieve FIFO is n Kbytes or more available. This function is 
+disabled if n=0. The default value is 8."
+
+
+[IHCTL]
+display = "Interrupt Holdoff Control"
+type = string
+strlength = 4
+;default = LD
+optional = yes
+set = LD,FI
+help = "IHCTL=str, specifies the point when the Interrupt holdoff counter 
+can restart. Countdown start as soon as LoaD if str=LD. 
+If str=FI, it start when the First Interrupt condition occurs. 
+The default string is LD."
+
+
+[IHTIME]
+display = "Interrupt Holdoff Time"
+type = decimal
+;default = 0
+optional = yes
+range = 0-255
+help = "IHTIME=n, n=0..255, specifies the interrupt holdoff counter. 
+The countdown interval is 100us. The default value is 0."
+
+
+[RXAEP]
+display = "Accept CRC or Alignment Errors"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXAEP=str specifies the MAC action when the CRC or alignmet 
+errored frame is received. The MAC accepts it, if YES is specfied. 
+The default string is NO, the MAC rejects the errored frames."
+
+
+[RXARP]
+display = "Accept Runt Packets"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXARP=str specifies the MAC action when the runt packet is 
+received. The MAC accepts it, if YES is specified. 
+The default string is NO, the MAC rejects the runt packets"
+
+
+[RXAIRL]
+display = "Accept In-Range Length Errors"
+type = string
+strlength = 4
+default = YES
+optional = yes
+set = YES,NO
+help = "RXAIRL=str specifies the MAC action when the In-Range Length 
+errored frame is received. The MAC rejects it, if NO is specified. 
+The default string is YES, the MAC accepts the errored frames. 
+Select RXAIRL=YES, if the netbios protocol is binded."
+
+
+[IRQ15OVR]
+display = "Accept IRQ level > 15"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "IRQ15OVR=str, specifies that the range of the acceptable 
+IRQ level is either [0..15] or [0..255]. If YES is specified, 
+the range is [0..255](no range check). The default string is NO."
+
+
